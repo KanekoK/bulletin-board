@@ -14,7 +14,21 @@ return function (App $app) {
         return $response;
     });
 
-    $app->get('/', function (Request $request, Response $response) {
+    // 投稿一覧の取得API
+    $app->get('/api/page', function (Request $request, Response $response) {
+        // データベース操作
+        $link = mysqli_connect('localhost', 'root', '', 'bulletin-board');
+        $result = mysqli_query($link, 'SELECT * FROM messages');
+        $messages = mysqli_fetch_all($result);
+        mysqli_close($link);
+
+        // 文字列（json形式）にして返す
+        $response->getBody()->write(json_encode($messages, JSON_UNESCAPED_UNICODE));
+        return $response;
+    });
+
+    // 新規投稿API
+    $app->post('/api/page', function (Request $request, Response $response) {
         $response->getBody()->write('Hello world!');
         return $response;
     });
