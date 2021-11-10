@@ -34,7 +34,7 @@ $('#post').on('click', () => {
             "message": message
         }
     }).done(function(data){
-        alert(data);
+        window.location.reload();
     });
 });
 
