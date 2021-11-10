@@ -54,8 +54,25 @@ return function (App $app) {
 
         // データベース操作
         $link = mysqli_connect('localhost', 'root', '', 'bulletin-board');
-        $stmt = mysqli_prepare($link, "UPDATE messages set title = ?, message = ? where id = ?");
+        $stmt = mysqli_prepare($link, "UPDATE messages SET title = ?, message = ? WHERE id = ?");
         mysqli_stmt_bind_param($stmt, "ssi", $title, $message, $id);
+        $result = mysqli_stmt_execute($stmt);
+        
+        mysqli_close($link);
+
+        $response->getBody()->write(json_encode($result, JSON_UNESCAPED_UNICODE));
+        return $response;
+    });
+
+    // 削除API
+    $app->delete('/api/page', function (Request $request, Response $response) {
+        $params = $request->getQueryParams();
+        $id = $params['id'];
+
+        // データベース操作
+        $link = mysqli_connect('localhost', 'root', '', 'bulletin-board');
+        $stmt = mysqli_prepare($link, "DELETE FROM messages WHERE id = ?");
+        mysqli_stmt_bind_param($stmt, "i", $id);
         $result = mysqli_stmt_execute($stmt);
         
         mysqli_close($link);
