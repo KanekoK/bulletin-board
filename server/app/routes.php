@@ -29,7 +29,8 @@ return function (App $app) {
 
     // 新規投稿API
     $app->post('/api/page', function (Request $request, Response $response) {
-        $params = $request->getQueryParams();
+        $params = $request->getParsedBody();
+
         $title = $params['title'];
         $message = $params['message'];
 
@@ -47,7 +48,7 @@ return function (App $app) {
 
     // 更新API
     $app->put('/api/page', function (Request $request, Response $response) {
-        $params = $request->getQueryParams();
+        $params = $request->getParsedBody();
         $id = $params['id'];
         $title = $params['title'];
         $message = $params['message'];
@@ -66,7 +67,7 @@ return function (App $app) {
 
     // 削除API
     $app->delete('/api/page', function (Request $request, Response $response) {
-        $params = $request->getQueryParams();
+        $params = $request->getParsedBody();
         $id = $params['id'];
 
         // データベース操作
