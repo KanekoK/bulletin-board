@@ -37,7 +37,7 @@ $('#post').on('click', () => {
 });
 
 
-$('body').on('click', '.edit', () => {
+$('.lists').on('click', '.edit', () => {
   alert('編集が押されました');
   // 投稿idを取得
 
@@ -49,14 +49,27 @@ $('body').on('click', '.edit', () => {
 
 });
 
-$('body').on('click', '.delete', () => {
+$('.lists').on('click', '.delete', function() {
   // 投稿idを取得
-  alert('削除が押されました');
-  console.log($(this).parents('.card'));
+  let $id = $(this).parents('.card').data('id');
 
   // アラートを出す
+  let result = window.confirm('本当に削除してよいですか？');
 
-  // 投稿idをもとに削除APIを叩く
+  if (result) {
+    // console.log($id);
+    // 投稿idをもとに削除APIを叩く
+    $.ajax({
+      type: 'POST',
+      url: url + '/delete',
+      data: {
+        "id": $id
+      }
+    }).done(function(data){
+      alert('削除完了しました。');
+      window.location.reload();
+    });
+  }
 
 });
 

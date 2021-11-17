@@ -66,7 +66,7 @@ return function (App $app) {
     });
 
     // 削除API
-    $app->delete('/api/page', function (Request $request, Response $response) {
+    $app->post('/api/page/delete', function (Request $request, Response $response) {
         $params = $request->getParsedBody();
         $id = $params['id'];
 
