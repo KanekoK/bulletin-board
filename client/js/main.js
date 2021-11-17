@@ -9,7 +9,9 @@ function format(id, title, message) {
   return card;
 }
 
-// 一覧取得
+/***************************************************************/
+/************************ 一覧取得 ******************************/
+/***************************************************************/
 $.ajax({
   type: 'GET',
   url: url
@@ -20,7 +22,10 @@ $.ajax({
   });
 });
 
-$('#post').on('click', () => {
+/***************************************************************/
+/************************ 新規投稿 ******************************/
+/***************************************************************/
+$('.submit-button').on('click', '#post', () => {
   let title = $('#title').val();
   let message = $('#message').val();
 
@@ -32,29 +37,33 @@ $('#post').on('click', () => {
         "message": message
     }
   }).done(function(data){
+    alert('投稿完了しました。');
     window.location.reload();
   });
 });
 
 
+/***************************************************************/
+/************************** 更新 ********************************/
+/***************************************************************/
 $('.lists').on('click', '.edit', function() {
   // 投稿id、タイトルとメッセージを取得
-  let $id = $(this).parents('.card').data('id');
+  let $id     = $(this).parents('.card').data('id');
   let message = $(this).parents('.right').prev().text();
-  let title = $(this).parents('.button-block').next().text()
+  let title   = $(this).parents('.button-block').next().text()
 
   // タイトルとメッセージを格納
   $('#title').val(title);
   $('#message').val(message);
 
   // ボタンテキストを「編集」に変更
-  // classに'update'を追加
-  $('#post').text('更新');
-  $('#post').addClass('update');
-
+  $('#post').css('display', 'none');
+  $('#update').css('display', 'block');
+  
   // 更新を押したら、更新APIを叩く
-  $('.update').on('click', function() {
+  $('.submit-button').on('click', '#update', function() {
     // 更新APIを叩く
+    console.log($id, title, message);
     $.ajax({
       type: 'PUT',
       url: url,
@@ -70,6 +79,9 @@ $('.lists').on('click', '.edit', function() {
   });
 });
 
+/****************************************************************/
+/************************** 削除 ********************************/
+/***************************************************************/
 $('.lists').on('click', '.delete', function() {
   // 投稿idを取得
   let $id = $(this).parents('.card').data('id');

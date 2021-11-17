@@ -18,7 +18,7 @@ return function (App $app) {
     $app->get('/api/page', function (Request $request, Response $response) {
         // データベース操作
         $link = mysqli_connect('localhost', 'root', '', 'bulletin-board');
-        $result = mysqli_query($link, 'SELECT * FROM messages');
+        $result = mysqli_query($link, 'SELECT * FROM messages ORDER BY created_at DESC');
         $messages = mysqli_fetch_all($result);
         mysqli_close($link);
 
