@@ -25,7 +25,7 @@ $.ajax({
 /***************************************************************/
 /************************ 新規投稿 ******************************/
 /***************************************************************/
-$('.submit-button').on('click', '#post', () => {
+$('#post').on('click', function() {
   let title = $('#title').val();
   let message = $('#message').val();
 
@@ -61,12 +61,14 @@ $('.lists').on('click', '.edit', function() {
   $('#update').css('display', 'block');
   
   // 更新を押したら、更新APIを叩く
-  $('.submit-button').on('click', '#update', function() {
+  $('#update').on('click', function() {
+    title = $('#title').val();
+    message = $('#message').val();
     // 更新APIを叩く
     console.log($id, title, message);
     $.ajax({
-      type: 'PUT',
-      url: url,
+      type: 'POST',
+      url: url + '/update',
       data: {
         "id": $id,
         "title": title,

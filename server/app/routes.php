@@ -47,7 +47,7 @@ return function (App $app) {
     });
 
     // 更新API
-    $app->put('/api/page', function (Request $request, Response $response) {
+    $app->post('/api/page/update', function (Request $request, Response $response) {
         $params = $request->getParsedBody();
         $id = $params['id'];
         $title = $params['title'];
