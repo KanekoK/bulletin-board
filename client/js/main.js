@@ -38,7 +38,7 @@ $('#post').on('click', function() {
     }
   }).done(function(data){
     alert('投稿完了しました。');
-    window.location.reload();
+    window.location.reload(); // リロード
   });
 });
 
@@ -65,7 +65,6 @@ $('.lists').on('click', '.edit', function() {
     title = $('#title').val();
     message = $('#message').val();
     // 更新APIを叩く
-    console.log($id, title, message);
     $.ajax({
       type: 'POST',
       url: url + '/update',
